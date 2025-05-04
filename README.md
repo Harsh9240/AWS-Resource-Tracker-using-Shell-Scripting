@@ -47,3 +47,57 @@ aws ec2 describe-instances --output table >> $LOG_FILE 2>&1
 
 echo "Listing Lambda functions" >> $LOG_FILE
 aws lambda list-functions --output table >> $LOG_FILE 2>&1
+
+
+
+
+🕒 Scheduling with Crontab
+To schedule the script to run daily at 6:00 AM:
+
+bash
+Copy
+Edit
+crontab -e
+Add the following line:
+
+bash
+Copy
+Edit
+0 6 * * * /home/harsh/aws_resource_tracker >> /home/harsh/aws_cron.log 2>&1
+✅ How to Use
+Make sure AWS CLI is installed and configured (aws configure)
+
+Save the script as /home/harsh/aws_resource_tracker
+
+Give it execution permission:
+
+bash
+Copy
+Edit
+chmod +x /home/harsh/aws_resource_tracker
+(Optional) Run manually to test:
+
+bash
+Copy
+Edit
+/home/harsh/aws_resource_tracker
+📌 Output Example
+pgsql
+Copy
+Edit
+Listing S3 buckets
+2025-05-01  bucket-name-example
+
+Listing EC2 instances
+-----------------------------------------------------
+|                DescribeInstances                  |
++---------------------------------------------------+
+|               InstanceId | InstanceType | State   |
+|  i-0123456789abcdef0     | t2.micro     | running |
+
+Listing Lambda functions
+-----------------------------------------------------
+|                   ListFunctions                   |
++---------------------------------------------------+
+|   FunctionName | Runtime | LastModified           |
+|   my-function  | python3.9 | 2025-05-01T05:00:00Z  |
